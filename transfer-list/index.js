@@ -8,7 +8,7 @@ let listItems = {
   Vue: "right",
   Svelte: "right",
 };
-let uls = document.querySelectorAll("ul");
+
 let left_list = document.querySelector(".leftList");
 let right_list = document.querySelector(".rightList");
 let all_right_btn = document.querySelector(".all-right");
@@ -27,6 +27,14 @@ function renderList(obj) {
       if (input.checked) {
         obj[item] = obj[item] === "left" ? "right" : "left";
       }
+
+      if (checkChecked()) {
+        all_left_btn.setAttribute("disabled", "true");
+        all_right_btn.setAttribute("disabled", "true");
+      } else {
+        all_left_btn.removeAttribute("disabled");
+        all_right_btn.removeAttribute("disabled");
+      }
     });
     if (obj[item] === "left") {
       left_list.firstElementChild.appendChild(li);
@@ -36,14 +44,27 @@ function renderList(obj) {
   }
 }
 
+function checkChecked() {
+  let inputs = document.getElementsByTagName("input");
+  for (let input of inputs) {
+    if (input.checked) {
+      return true;
+    }
+  }
+}
+checkChecked();
 renderList(listItems);
 
 left_btn.addEventListener("click", () => {
   renderList(listItems);
+  all_left_btn.removeAttribute("disabled");
+  all_right_btn.removeAttribute("disabled");
 });
 
 right_btn.addEventListener("click", () => {
   renderList(listItems);
+  all_left_btn.removeAttribute("disabled");
+  all_right_btn.removeAttribute("disabled");
 });
 
 all_right_btn.addEventListener("click", () => {
