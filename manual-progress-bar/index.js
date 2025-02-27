@@ -42,13 +42,24 @@ previous_btn.addEventListener("click", (e) => {
     if (progress_bar.style.width === "99%") {
       nxt_btn.textContent = "Next";
     }
+    if (progress_bar.style.width == "33%") {
+      previous_btn.setAttribute("disabled", "true");
+    }
     let value = 99 / 3;
     progress_bar.style.width = `${
       parseInt(progress_bar.style.width.split("%")) - value
     }%`;
   }
+
   if (currentStage > 1) {
-    currentStage--;
+    if (currentStage === 5) {
+      currentStage = 3;
+      let completed_mile = document.querySelector(`#mil4`);
+      completed_mile.firstElementChild.textContent = 4;
+      completed_mile.firstElementChild.classList.toggle("task-complete");
+    } else {
+      currentStage--;
+    }
   }
   let completed_mile = document.querySelector(`#mil${currentStage}`);
 
@@ -73,6 +84,7 @@ nxt_btn.addEventListener("click", (e) => {
     progress_bar.style.width = `${value}%`;
     return;
   }
+
   if (parseInt(progress_bar.style.width.split("%")) < 99) {
     progress_bar.style.width = `${
       parseInt(progress_bar.style.width.split("%")) + value

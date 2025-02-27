@@ -77,3 +77,8 @@
   background-color: green;
   color: white;
 }
+.heading {
+  font-size: 2.5rem;
+  width: fit-content;
+  margin: auto;
+}
